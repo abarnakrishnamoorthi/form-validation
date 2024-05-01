@@ -1,0 +1,213 @@
+<!DOCTYPE html>
+<html lang="en">
+<head>
+    <meta charset="UTF-8">
+    <meta name="viewport" content="width=device-width, initial-scale=1.0">
+    <title>Registration Form</title>
+    <link href="https://cdn.jsdelivr.net/npm/bootstrap@5.3.3/dist/css/bootstrap.min.css" rel="stylesheet" integrity="sha384-QWTKZyjpPEjISv5WaRU9OFeRpok6YctnYmDr5pNlyT2bRjXh0JMhjY6hW+ALEwIH" crossorigin="anonymous">
+    <style>
+        .text-success {
+            color: #710975;
+        }
+        body{
+        display: flex;
+        justify-self: center;
+        align-items: center;
+        min-height: 100vh;
+        background: url('img.jpg') no-repeat;
+        background-size: cover;
+        background-position: center;
+    }
+    </style>
+</head>
+<body class="text-center">
+    <form name="form1" class="mx-auto" style="max-width: 400px;">
+        <h1 class="mb-4"><u style="color: rgb(245, 243, 243);">Registration Form</u></h1>
+        <div class="mb-3">
+            <label for="name" class="form-label text-success">Name:</label>
+            <input type="text" id="name" name="name" class="form-control" required oninput="enableNextField(this, 'email')" maxlength="100">
+        </div>
+        <div class="mb-3">
+            <label for="email" class="form-label text-success">Email:</label>
+            <input type="email" id="email" name="email" class="form-control" oninput="validateEmail(this); enableNextField(this, 'phonenumber')" disabled>
+            <div id="email-error" class="text-danger"></div>
+        </div>
+        <div class="mb-3">
+            <label for="phonenumber" class="form-label text-success">Phone number:</label>
+            <input type="tel" id="phonenumber" name="phonenumber" class="form-control" disabled oninput="validatePhone(this); enableNextField(this, 'birth')" pattern="[0-9]{10}" maxlength="10">
+            <div id="phone-error" class="text-danger"></div>
+        </div>
+        <div class="mb-3">
+            <label for="birth" class="form-label text-success">Date of Birth:</label>
+            <input type="date" id="birth" name="birth" class="form-control" oninput="enableNextField(this, 'status')">
+        </div>
+        <div class="mb-3">
+            <label class="form-label text-success">Marital Status:</label><br>
+            <input type="radio" name="status" value="Single" class="form-check-input" >
+            <label class="form-check-label">Single</label>
+            <input type="radio" name="status" value="Married" class="form-check-input" >
+            <label class="form-check-label">Married</label>
+        </div>
+        <div class="mb-3">
+            <label class="form-label text-success">Degree:</label><br>
+            <input type="radio" name="degree" value="BE" class="form-check-input" >
+            <label class="form-check-label">BE</label>
+            <input type="radio" name="degree" value="BTECH" class="form-check-input" >
+            <label class="form-check-label">BTECH</label>
+        </div>
+        <div class="mb-3">
+            <label for="department" class="form-label text-success">Department:</label><br>
+            <select name="department" id="department" class="form-select" >
+                <option value="">Select Department</option>
+                <option value="Civil Engineering">Civil Engineering</option>
+                <option value="Mechanical Engineering">Mechanical Engineering</option>
+                <option value="Computer Science and Engineering">Computer Science and Engineering</option>
+                <option value="Electrical engineering">Electrical engineering</option>
+                <option value="Chemical Engineering">Chemical Engineering</option>
+                <option value="Biotechnology">Biotechnology</option>
+                <option value="Aerospace engineering">Aerospace engineering</option>
+                <option value="Automobile Engineering">Automobile Engineering</option>
+                <option value="Biomedical engineering">Biomedical engineering</option>
+                <option value="Marine engineering">Marine engineering</option>
+                <option value="Structural engineering">Structural engineering</option>
+                <option value="Information technology">Information technology</option>
+                <option value="Humanities">Humanities</option>
+                <option value="Mechatronics">Mechatronics</option>
+                <option value="Mining engineering">Mining engineering</option>
+                <option value="Power engineering">Power engineering</option>
+                <option value="Agricultural engineering">Agricultural engineering</option>
+                <option value="Machine learning">Machine learning</option>
+                <option value="BE Petrochemical Engineering">BE Petrochemical Engineering</option>
+                <option value="Data science">Data science</option>
+                <option value="Environmental engineering">Environmental engineering</option>
+                <option value="Electrical and Electronics Engineering">Electrical and Electronics Engineering</option>
+                <option value="Electronics and Communication Engineering">Electronics and Communication Engineering</option>
+                <option value="Industrial Engineering">Industrial Engineering</option>
+            </select>
+        </div>
+        <div class="mb-3">
+            <label class="form-label text-success">Languages Known:</label><br>
+            <input type="checkbox" name="languages" value="C" class="form-check-input" oninput="enableNextField(this, 'password')">
+            <label class="form-check-label">C</label>
+            <input type="checkbox" name="languages" value="C++" class="form-check-input" oninput="enableNextField(this, 'password')">
+            <label class="form-check-label">C++</label>
+            <input type="checkbox" name="languages" value="Python" class="form-check-input" oninput="enableNextField(this, 'password')">
+            <label class="form-check-label">Python</label>
+            <input type="checkbox" name="languages" value="Java" class="form-check-input" oninput="enableNextField(this, 'password')">
+            <label class="form-check-label">Java</label>
+        </div>
+        <div class="mb-3">
+            <label for="password" class="form-label text-success">Password:</label>
+            <input type="password" id="password" name="password" class="form-control" disabled oninput="enableNextField(this, 'confirmPassword')" pattern="(?=.[A-Z])(?=.\d).{8,}" minlength="8">
+            <div id="password-error" class="text-danger"></div>
+        </div>
+        <div class="mb-3">
+            <label for="confirmPassword" class="form-label text-success">Confirm Password:</label>
+            <input type="password" id="confirmPassword" name="confirmPassword" class="form-control" disabled oninput="enableNextField(this, 'address')">
+        </div>
+        <div class="mb-3">
+            <label for="address" class="form-label text-success">Address:</label>
+            <textarea name="address" id="address" rows="4" cols="50" class="form-control" disabled oninput="enableNextField(this, 'submit')"></textarea>
+        </div>
+        <input type="button" value="Submit" onclick="validate()" class="btn btn-success" id="submit" disabled><br><br><br>
+
+
+        <div class=" text-white" id="result"></div><br><br><br>
+    </form>
+
+    <script>
+        function enableNextField(currentField, nextField) {
+            var fieldValue = currentField.value.trim();
+            if (fieldValue !== "") {
+                document.getElementById(nextField).removeAttribute("disabled");
+            } else {
+                document.getElementById(nextField).setAttribute("disabled", "disabled");
+            }
+        }
+
+        function validateEmail(emailField) {
+            var email = emailField.value;
+            var emailRegex = /^[^\s@]+@[^\s@]+\.[^\s@]+$/;
+            if (!emailRegex.test(email)) {
+                document.getElementById('email-error').innerHTML = "Please enter a valid email address";
+                document.getElementById('submit').setAttribute("disabled", "disabled");
+            } else {
+                document.getElementById('email-error').innerHTML = "";
+                document.getElementById('submit').removeAttribute("disabled");
+            }
+        }
+
+        function validatePhone(phoneField) {
+            var phone = phoneField.value;
+            var phoneRegex = /^\d{10}$/;
+            if (!phoneRegex.test(phone)) {
+                document.getElementById('phone-error').innerHTML = "Please enter a 10-digit phone number";
+                document.getElementById('submit').setAttribute("disabled", "disabled");
+            } else {
+                document.getElementById('phone-error').innerHTML = "";
+                document.getElementById('submit').removeAttribute("disabled");
+            }
+        }
+
+        function validatePassword(passwordField) {
+            var password = passwordField.value;
+            var passwordRegex = /^(?=.*[A-Z])(?=.*\d).{8,}$/;
+            if (!passwordRegex.test(password)) {
+                document.getElementById('password-error').innerHTML = "Password must be at least 8 characters long, contain at least one uppercase letter and one digit";
+                document.getElementById('submit').setAttribute("disabled", "disabled");
+            } else {
+                document.getElementById('password-error').innerHTML = "";
+                document.getElementById('submit').removeAttribute("disabled");
+            }
+        }
+
+        function validate() {
+            var name = document.getElementsByName("name")[0].value;
+            var email = document.getElementsByName("email")[0].value;
+            var phone = document.getElementsByName("phonenumber")[0].value;
+            var date = document.getElementsByName("birth")[0].value;
+            var status = document.querySelector('input[name="status"]:checked');
+            var degree = document.querySelector('input[name="degree"]:checked');
+            var department = document.getElementsByName("department")[0].value;
+            var languages = document.querySelectorAll('input[name="languages"]:checked');
+            var address = document.getElementsByName("address")[0].value;
+            var password = document.getElementsByName("password")[0].value;
+            var confirmPassword = document.getElementsByName("confirmPassword")[0].value;
+
+            if (name === "" || email === "" || phone === "" || date === "" || !status || !degree || department === "" || languages.length === 0 || address === "" || password === "" || confirmPassword === "") {
+                alert("Please fill out all fields");
+                return false;
+            }
+
+            var emailRegex = /^[^\s@]+@[^\s@]+\.[^\s@]+$/;
+            if (!emailRegex.test(email)) {
+                alert("Please enter a valid email address");
+                return false;
+            }
+
+            var phoneRegex = /^\d{10}$/;
+            if (!phoneRegex.test(phone)) {
+                alert("Please enter a 10-digit phone number");
+                return false;
+            }
+
+            var passwordRegex = /^(?=.*[A-Z])(?=.*\d).{8,}$/;
+            if (!passwordRegex.test(password)) {
+                alert("Password must be at least 8 characters long, contain at least one uppercase letter and one digit");
+                return false;
+            }
+
+            if (password !== confirmPassword) {
+                alert("Password and confirm password do not match");
+                return false;
+            }
+
+            // Form submission logic
+            // You can modify this part as per your requirements
+            document.body.style.backgroundColor = "purple";
+
+            document.getElementById('result').innerHTML=('<div style="text-align: center;"><h4>Your name is ' + name + '<br>Your Email is ' + email + '<br>Phone number is ' + phone + '<br>Your date of birth is ' + date + ' <br> Your are ' + status.value + '<br> Degree: ' + degree.value + '<br> Department: ' + department + '<br>Languages Known: ' + Array.from(languages).map(lang => lang.value).join(", ") + '<br> Address: ' + address + '</h4></div>');
+        }
+    </script>
+</body>
+</html>
